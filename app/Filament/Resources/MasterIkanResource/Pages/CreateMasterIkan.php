@@ -27,15 +27,15 @@ class CreateMasterIkan extends CreateRecord
 
     protected function afterCreate(): void
     {
-        $find = TIkanStockTab::where('m_ikan_tabs_id', $this->data['m_ikan_tabs_id'])->first();
+        $find = TIkanStockTab::where('m_ikan_tabs_id', $this->record->m_ikan_tabs_id)->first();
         if(isset($find)){
             $find->update([
-                'stock' => $find->stock + $this->data['count']
+                'stock' => $find->stock + $this->record->count
             ]);
         } else {
             TIkanStockTab::create([
-                'm_ikan_tabs_id' => $this->record->id,
-                'stock' => $this->data['count'],
+                'm_ikan_tabs_id' => $this->record->m_ikan_tabs_id,
+                'stock' => $this->record->count,
             ]);
         }
     }
