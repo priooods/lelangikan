@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\MasterPelangganResource\Pages;
-use App\Filament\Resources\MasterPelangganResource\RelationManagers;
-use App\Models\MasterPelanggan;
-use App\Models\User;
+use App\Filament\Resources\MasterPenggunaResource\Pages;
+use App\Filament\Resources\MasterPenggunaResource\RelationManagers;
+use App\Models\MasterPengguna;
+use App\Models\PegawaiTabs;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,12 +14,12 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MasterPelangganResource extends Resource
+class MasterPenggunaResource extends Resource
 {
-    protected static ?string $model = User::class;
+    protected static ?string $model = PegawaiTabs::class;
     protected static ?string $navigationGroup = 'Master';
-    protected static ?string $navigationLabel = 'Pelanggan';
-    protected static ?string $breadcrumb = "Pelanggan";
+    protected static ?string $navigationLabel = 'Pegawai';
+    protected static ?string $breadcrumb = "Pegawai";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -59,9 +59,9 @@ class MasterPelangganResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMasterPelanggans::route('/'),
-            'create' => Pages\CreateMasterPelanggan::route('/create'),
-            'edit' => Pages\EditMasterPelanggan::route('/{record}/edit'),
+            'index' => Pages\ListMasterPenggunas::route('/'),
+            'create' => Pages\CreateMasterPengguna::route('/create'),
+            'edit' => Pages\EditMasterPengguna::route('/{record}/edit'),
         ];
     }
 }
