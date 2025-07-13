@@ -71,11 +71,11 @@ class JualIkanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(
-                TPenjualanTabs::with('transaction')->whereHas('transaction', function ($a) {
-                    $a->whereNotIn('m_status_tabs_id', [4, 6]);
-                })
-            )
+            //     ->query(
+            //     // TPenjualanTabs::where('')->with('transaction')->whereHas('transaction', function ($a) {
+            //     //     $a->whereNotIn('m_status_tabs_id', [4, 6]);
+            //     // })
+            // )
             ->searchable()
             ->emptyStateHeading('Belum ada data product')
             ->columns([
@@ -92,6 +92,7 @@ class JualIkanResource extends Resource
             }),
             TextColumn::make('m_status_tabs_id')->label('Status')->alignment(Alignment::Center)->badge()->color(fn(string $state): string => match ($state) {
                 'Draft' => 'gray',
+                'Terjual' => 'success',
                 'Available' => 'success',
                 'Not Available' => 'danger',
             })->getStateUsing(fn($record) => $record->status ? $record->status->title : 'Tidak Ada'),

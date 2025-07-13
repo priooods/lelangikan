@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LelangPesertaResource\Pages;
 use App\Filament\Resources\LelangPesertaResource\RelationManagers;
 use App\Models\LelangPeserta;
+use App\Models\TLelangDetailTabs;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LelangPesertaResource extends Resource
 {
-    protected static ?string $model = LelangPeserta::class;
+    protected static ?string $model = TLelangDetailTabs::class;
     protected static ?string $navigationGroup = 'Pelelangan';
     protected static ?string $navigationLabel = 'Peserta';
     protected static ?string $breadcrumb = "Peserta";

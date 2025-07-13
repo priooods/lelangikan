@@ -42,9 +42,7 @@ class PasarIkanResource extends Resource
     {
         return $table
             ->query(
-                TPenjualanTabs::with('transaction')->whereHas('transaction', function($a){
-                    $a->whereNotIn('m_status_tabs_id',[4,6]);
-                })
+            TPenjualanTabs::with('transaction')->doesntHave('transaction')
             )
             ->searchable()
             ->emptyStateHeading('Belum ada data product')
