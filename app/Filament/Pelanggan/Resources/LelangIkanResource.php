@@ -5,6 +5,7 @@ namespace App\Filament\Pelanggan\Resources;
 use App\Filament\Pelanggan\Resources\LelangIkanResource\Pages;
 use App\Filament\Pelanggan\Resources\LelangIkanResource\RelationManagers;
 use App\Models\LelangIkan;
+use App\Models\TLelangTabs;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LelangIkanResource extends Resource
 {
-    protected static ?string $model = LelangIkan::class;
+    protected static ?string $model = TLelangTabs::class;
     protected static ?string $navigationLabel = 'Lelang Ikan';
     protected static ?string $breadcrumb = "Lelang";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
