@@ -9,11 +9,12 @@ use Filament\Resources\Pages\ListRecords;
 class ListMasterPelanggans extends ListRecords
 {
     protected static string $resource = MasterPelangganResource::class;
-
+    protected static ?string $title = 'Pengguna';
+    protected ?string $heading = 'Data Pengguna';
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            //Actions\CreateAction::make(),
         ];
     }
 }

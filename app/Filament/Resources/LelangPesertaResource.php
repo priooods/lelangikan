@@ -6,10 +6,13 @@ use App\Filament\Resources\LelangPesertaResource\Pages;
 use App\Filament\Resources\LelangPesertaResource\RelationManagers;
 use App\Models\LelangPeserta;
 use App\Models\TLelangDetailTabs;
+use App\Models\TLelangTabs;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -34,7 +37,10 @@ class LelangPesertaResource extends Resource
     {
         return $table
             ->columns([
-                //
+            TextColumn::make('users_id')
+                ->label('Nama Peserta')->searchable()
+                ->description(fn(TLelangTabs $record): string => $record->description ?? '-')
+                ->getStateUsing(fn($record) => $record->ikan ? $record->ikan?->ikan?->fish_name : '-'),
             ])
             ->filters([
                 //

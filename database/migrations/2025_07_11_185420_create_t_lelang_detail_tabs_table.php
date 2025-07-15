@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedInteger('m_status_tabs_id')->default(1)->comment('ID dari table status');
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('m_status_tabs_id')->references('id')->on('m_status_tabs');
             $table->foreign('t_lelang_tabs_id')->references('id')->on('t_lelang_tabs')->cascadeOnDelete();
         });
     }
