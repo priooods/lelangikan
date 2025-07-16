@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\MasterPenggunaResource\Pages;
 use App\Filament\Resources\MasterPenggunaResource\RelationManagers;
 use App\Models\MasterPengguna;
+use App\Models\MUserRoleTabs;
 use App\Models\PegawaiTabs;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -27,6 +28,12 @@ class MasterPenggunaResource extends Resource
     protected static ?string $breadcrumb = "Pegawai";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        if (auth()->guard('admin')->user()->m_user_role_tabs_id == 1) return true;
+        else return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -36,9 +43,9 @@ class MasterPenggunaResource extends Resource
             Select::make('m_user_role_tabs_id')
                 ->label('Pilih Role')
                 ->placeholder('Cari Role')
-                ->options([
-                    2 => 'Admin'
-                ])
+                ->options(MUserRoleTabs::whereNotIn('id', [1, 3])->pluck('title', 'id'))
+                ->getSearchResultsUsing(fn(string $search): array => MUserRoleTabs::whereNotIn('id', [1, 3])->where('title', 'like', "%{$search}%")->limit(5)->pluck('title', 'id')->toArray())
+                ->getOptionLabelUsing(fn($value): ?string => MUserRoleTabs::find($value)?->title)
                 ->default(0)
                 ->required(),
             Select::make('gender')
@@ -85,7 +92,7 @@ class MasterPenggunaResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+            Tables\Actions\EditAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

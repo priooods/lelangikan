@@ -65,7 +65,7 @@ class LelangIkanResource extends Resource
                 ->required(),
             DatePicker::make('start_date_lelang')->label('Mulai Lelang')->required(),
             DatePicker::make('end_date_lelang')->label('Selesai Lelang')->required(),
-            Textarea::make('description')->label('Deskripsi')->placeholder('Masukan deskripsi lelang'),
+            Textarea::make('description')->label('Judul Lelang')->placeholder('Masukan Judul Lelang'),
             ]);
     }
 
@@ -75,6 +75,7 @@ class LelangIkanResource extends Resource
             ->searchable()
             ->emptyStateHeading('Belum ada data product')
             ->columns([
+            TextColumn::make('description')->label('Judul'),
             TextColumn::make('t_ikan_tabs_id')
                 ->label('Nama Ikan')->searchable()
                 ->description(fn(TLelangTabs $record): string => $record->description ?? '-')

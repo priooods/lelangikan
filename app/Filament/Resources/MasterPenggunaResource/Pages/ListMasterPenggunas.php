@@ -16,7 +16,7 @@ class ListMasterPenggunas extends ListRecords
     {
         return [
             Actions\CreateAction::make()->label('Tambah Pengguna')
-                ->visible(auth()->user()->m_user_role_tabs_id == 1 || auth()->user()->m_user_role_tabs_id == 2),
+                ->visible(auth()->user()->m_user_role_tabs_id == 1),
         ];
     }
 }
