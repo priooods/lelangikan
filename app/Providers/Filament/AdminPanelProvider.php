@@ -29,6 +29,8 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->profile()
             ->databaseTransactions()
+            ->brandLogo(fn() => view('logo'))
+            ->brandLogoHeight('3rem')
             ->colors([
                 'primary' => Color::Amber,
             ])

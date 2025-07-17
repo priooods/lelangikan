@@ -28,6 +28,8 @@ class PelangganPanelProvider extends PanelProvider
             ->login()
             ->registration()
             ->databaseTransactions()
+            ->brandLogo(fn() => view('logo'))
+            ->brandLogoHeight('3rem')
             ->profile()
             ->colors([
                 'primary' => Color::Amber,
