@@ -2,5 +2,5 @@
     <img src="{{ asset('storage/images/logo_lelang.png') }}" 
         alt="Logo Dashboard" style="height: 3rem; padding-top: 1px;"
         class="object-cover mx-auto">
-    <p class="text-center font-bold my-auto">BILIK TROPICAL</p>
+    <p class="text-center font-bold my-auto">MINA MUARA SEJAHTERA</p>
 </div>

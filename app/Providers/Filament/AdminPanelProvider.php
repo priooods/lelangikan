@@ -2,10 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Profile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -27,10 +29,14 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->profile()
+            // ->profile()
             ->databaseTransactions()
             ->brandLogo(fn() => view('logo'))
             ->brandLogoHeight('3rem')
+            ->userMenuItems([
+                MenuItem::make()->label('Profile')->url(fn(): string => Profile::getUrl(panel: 'admin'))->icon('heroicon-o-user')
+            ])
+            ->databaseTransactions()
             ->colors([
                 'primary' => Color::Amber,
             ])
