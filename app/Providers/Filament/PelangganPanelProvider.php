@@ -32,13 +32,18 @@ class PelangganPanelProvider extends PanelProvider
             ->databaseTransactions()
             ->brandLogo(fn() => view('logo'))
             ->brandLogoHeight('3rem')
+            ->colors([
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Green,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
+            ])
             // ->profile()
             ->userMenuItems([
                 MenuItem::make()->label('Profile')->url(fn(): string => Profile::getUrl(panel: 'pelanggan'))->icon('heroicon-o-user')
-            ])
-            ->colors([
-                'primary' => Color::Amber,
-            ])
+        ])
             ->discoverResources(in: app_path('Filament/Pelanggan/Resources'), for: 'App\\Filament\\Pelanggan\\Resources')
             ->discoverPages(in: app_path('Filament/Pelanggan/Pages'), for: 'App\\Filament\\Pelanggan\\Pages')
             ->pages([

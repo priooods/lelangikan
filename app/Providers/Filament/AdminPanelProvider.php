@@ -29,6 +29,14 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->colors([
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Green,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
+            ])
             // ->profile()
             ->databaseTransactions()
             ->brandLogo(fn() => view('logo'))
@@ -37,9 +45,6 @@ class AdminPanelProvider extends PanelProvider
                 MenuItem::make()->label('Profile')->url(fn(): string => Profile::getUrl(panel: 'admin'))->icon('heroicon-o-user')
             ])
             ->databaseTransactions()
-            ->colors([
-                'primary' => Color::Amber,
-            ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
