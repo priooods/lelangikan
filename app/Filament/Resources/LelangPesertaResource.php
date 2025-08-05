@@ -39,6 +39,7 @@ class LelangPesertaResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->recordUrl(null)
             ->groups([
                 Group::make('t_lelang_tabs_id')
                     ->label('Judul Lelang')->getTitleFromRecordUsing(fn(TLelangDetailTabs $record): string => $record->lelang->description),
@@ -50,6 +51,10 @@ class LelangPesertaResource extends Resource
             TextColumn::make('users_id')
                 ->label('Nama Peserta')->searchable()
                 ->getStateUsing(fn($record) => $record->user ? $record->user?->name : '-'),
+            TextColumn::make('pemenang')->label('Status Pemenang')->alignment(Alignment::Center)->badge()->color(fn(string $state): string => match ($state) {
+                'Menang Lelang' => 'success',
+                '' => 'info',
+            })->getStateUsing(fn($record) => $record->pemenang ? 'Menang Lelang' : ''),
             TextColumn::make('m_status_tabs_id')->label('Status')->alignment(Alignment::Center)->badge()->color(fn(string $state): string => match ($state) {
                 'Pengajuan' => 'info',
                 'Disetujui' => 'success',

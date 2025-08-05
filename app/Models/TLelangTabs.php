@@ -19,6 +19,11 @@ class TLelangTabs extends Model
         return $this->hasOne(TLelangDetailTabs::class, 't_lelang_tabs_id', 'id');
     }
 
+    public function findpemenang()
+    {
+        return $this->hasOne(TLelangDetailTabs::class, 't_lelang_tabs_id', 'id')->where('pemenang', 1);
+    }
+
     public function status()
     {
         return $this->belongsTo(MStatusTabs::class, 'm_status_tabs_id');

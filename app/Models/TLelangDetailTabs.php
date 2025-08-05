@@ -11,7 +11,13 @@ class TLelangDetailTabs extends Model
         't_lelang_tabs_id',
         'm_status_tabs_id',
         'description',
+        'pemenang',
     ];
+
+    public function getNamesAttribute()
+    {
+        return $this->user->name;
+    }
 
     public function status()
     {

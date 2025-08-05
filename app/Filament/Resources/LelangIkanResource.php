@@ -6,6 +6,7 @@ use App\Filament\Resources\LelangIkanResource\Pages;
 use App\Filament\Resources\LelangIkanResource\RelationManagers;
 use App\Models\LelangIkan;
 use App\Models\TIkanTabs;
+use App\Models\TLelangDetailTabs;
 use App\Models\TLelangTabs;
 use App\Models\TPenjualanTabs;
 use Filament\Actions\StaticAction;
@@ -93,7 +94,6 @@ class LelangIkanResource extends Resource
                 'Available' => 'success',
                 'Not Available' => 'danger',
             })->getStateUsing(fn($record) => $record->status ? $record->status->title : 'Tidak Ada'),
-
         ])
             ->filters([
                 //
@@ -129,6 +129,45 @@ class LelangIkanResource extends Resource
                     ->modalHeading('Tarik Lelang Anda')
                     ->modalDescription('Apakah Lelang Anda selesai ?')
                     ->modalSubmitActionLabel('Lelang selesai')
+                    ->modalCancelAction(fn(StaticAction $action) => $action->label('Batal')),
+                Action::make('Winner')
+                    ->label('Atur Pemenang')
+                    ->form([
+                        Select::make('select_pemenang')
+                            ->label('Pilih Pemenang Lelang')
+                            ->placeholder('Cari nama peserta')
+                            ->required()
+                            ->searchable()
+                            ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                            ->getSearchResultsUsing(
+                                function ($record, string $search) {
+                                    return TLelangDetailTabs::where('t_lelang_tabs_id', $record->id)->where('m_status_tabs_id', 12)->with('user')
+                                        ->whereHas('user', function ($a) use ($search) {
+                                            $a->where('name', 'like', '%' . $search . '%');
+                                        })
+                                        ->limit(10)
+                                        ->get()
+                                        ->map(function (TLelangDetailTabs $item) {
+                                            $offer = TLelangDetailTabs::with('user')->find($item->id);
+                                            $item->name = $offer?->user?->name;
+                                            return $item;
+                                        })
+                                        ->pluck('name', 'id');
+                                }
+                            )
+                    ])
+                    ->action(function ($record) {
+                        TLelangDetailTabs::where('t_lelang_tabs_id', $record->id)->update([
+                            'pemenang' => 1
+                        ]);
+                    })
+                    ->visible(fn($record) => $record->findpemenang == null)
+                    ->icon('heroicon-o-check')
+                    ->color('info')
+                    ->requiresConfirmation()
+                    ->modalHeading('Atur Pemenang Lelang')
+                    ->modalDescription('Apakah lelang telah selesai ?')
+                    ->modalSubmitActionLabel('Simpan Pemenang')
                     ->modalCancelAction(fn(StaticAction $action) => $action->label('Batal')),
                 Tables\Actions\EditAction::make(),
             ])->button()->label('Aksi')->color('info')
